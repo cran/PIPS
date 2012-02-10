@@ -1,0 +1,29 @@
+
+R version 2.12.1 (2010-12-16)
+Copyright (C) 2010 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: sparc-sun-solaris2.10/sparcv9 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ######################################################################
+> ## File: test4.R
+> ## Author: Ray Griner
+> ## Date: November 11, 2011 (111111!)
+> ## Desc: Short examples of predicted interval plots (PIPs)
+> ######################################################################
+> 
+> set.seed(12345)
+> library(PIPS)
+Error in library(PIPS) : there is no package called 'PIPS'
+Execution halted

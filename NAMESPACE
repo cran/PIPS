@@ -1,0 +1,4 @@
+export( pred.int )
+S3method(print, pred.int)
+S3method(plot, pred.int)
+          
