@@ -1,7 +1,17 @@
 #####################################################################
-# Author: Daniel Muenz
-# Date: 2010
-# Desc: Function to print objects of class "pred.int".
+# PROGRAM:       print.pred.int.R
+# PURPOSE:       Function to print objects of class "pred.int".
+# INPUT:         
+#   x:  Object of type pred.int
+#   pi.count: Number of predicted intervals to print
+#   digits:   Digits used when printing confidence intervals
+# OUTPUT:        pred.int object printed to usual location
+# MACROS USED:   None
+# CALLED BY:     None
+# AUTHOR:        Daniel Muenz
+# CREATION DATE: 2010
+# NOTES: 
+# MODIFICATIONS:
 # [RG20120107] Ray Griner standardized stop message.
 #####################################################################
 print.pred.int <- function(x, pi.count=8,
@@ -26,7 +36,7 @@ print.pred.int <- function(x, pi.count=8,
                  Total=x$obs.n+x$sim.n), ... )
 
     ## Print out the confidence intervals.
-    cat("\nPoint estimates and ", 100*x$conf.level,
+    cat("\nPoint estimates and ", 100*x$obs.conf.level,
         "% confidence intervals from observed data:\n", sep="")
     cis <- matrix(0, nrow=length(x$ci), ncol=3,
                   dimnames=list(comp.names,

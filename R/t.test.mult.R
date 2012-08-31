@@ -1,13 +1,11 @@
 ###########################################################################
-## File: t.test.mult.R
-## Author: Daniel Muenz
-## Date: 2010
-## Description:
+## PROGRAM: t.test.mult.R
+## PURPOSE:
 ##
 ## Function to perform a 1 or 2 sample t-test.  The code comes largely
-## from t.test in the stats package, but differs in that it is used
-## with summary statistics rather than raw data, and it allows
-## multiple unrelated tests to be carried out simultaneously.
+##  from t.test in the stats package, but differs in that it is used
+##  with summary statistics rather than raw data, and it allows
+##  multiple unrelated tests to be carried out simultaneously.
 ##
 ## Note that several of the input parameters (mean1, var1, mean2, var2) can 
 ##  accept vectors as input.  All these vectors must have the same length.
@@ -31,12 +29,19 @@
 ##  doing a t-test on the observed data for each comparison, because it's 
 ##  more convenient for the calling function to have the output data as a vector
 ## 
-## RETURN VALUE:
+## OUTPUT (RETURN VALUE):
 ## The function returns either a vector (if as.vector=TRUE - with elements
 ## {estimate,upper, lower}) or a matrix (with columns {estimate,upper,lower} and
 ## one row for every test.
-###########################################################################
+##
+## MACROS USED: None
+## CALLED BY:   None
+## AUTHOR: Daniel Muenz
+## CREATION DATE: 2010
+## NOTES:
+## MODIFICATIONS:
 ## [RG20120107] Ray Griner standardized stop messages
+## [RG20120830] Ray Griner standardized program header
 ###########################################################################
 t.test.mult <-
 function(mean1, var1, n1, mean2=NULL, var2=NULL, n2=NULL,

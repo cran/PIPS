@@ -1,10 +1,8 @@
 #####################################################################
-## File: sim.basic.R
-## Author: Daniel Muenz
-## Date: 2010
-## Desc: Simulate future data for PIPs and combine with current data
+## PROGRAM: sim.basic.R
+## PURPOSE: Simulate future data for PIPs and combine with current data
 ## 
-## Parameters:
+## INPUT:
 ##  data.type: "binary" or "t.test"
 ##  group.names: Names of groups to simulate
 ##  iters: Number of iterations (simulations) to run
@@ -17,8 +15,16 @@
 ##   (redundant, just sim.n + obs.n)
 ##  obs.n, obs.mean, obs.sd: (for data.type="t.test") the N, mean
 ##   and std for each observed group
-#####################################################################
-## [RG20120107] Ray Griner standardized stop messages
+##
+## OUTPUT:        List containing the simulated resulst
+## MACROS USED:   None
+## CALLED BY:     pred.int
+## AUTHOR:        Daniel Muenz
+## CREATION DATE: 2010
+## NOTES:
+## MODIFICATIONS:
+##  [RG20120107] Ray Griner standardized stop messages
+##  [RG20120830] Ray Griner stdize program header
 #####################################################################
 sim.basic <- function(data.type, group.names,
                       obs.n, sim.n, N,

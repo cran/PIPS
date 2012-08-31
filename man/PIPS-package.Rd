@@ -14,8 +14,8 @@ Generate Predicted Interval Plots.  Simulate and plot confidence intervals of
 \tabular{ll}{
 Package:  \tab PIPS\cr
 Type:     \tab Package\cr
-Version:  \tab 1.0\cr
-Date:     \tab 2012-02-01\cr
+Version:  \tab 1.0.1\cr
+Date:     \tab 2012-08-31\cr
 License:  \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }
@@ -25,9 +25,10 @@ LazyLoad: \tab yes\cr
 Daniel G. Muenz, Ray Griner, Huichao Chen, Lijuan Deng, Sachiko Miyahara, and Scott R. Evans \email{evans@sdac.harvard.edu}, 
 with contributions from Lingling Li, Hajime Uno, and Laura M. Smeaton.
 
-LL, HU, and SRE contributed code that created predicted interval plots (PIPS) for time to event analyses. LMS provided enhancements for time-to-event 
-  outcomes. (Time-to-event outcomes are not yet supported by the package, but these programs aided our design.)  HC wrote code for binary outcomes. 
-  LD and SM wrote for normal outcomes.  DGM consolidated, modularized, and improved these contributions. RG finished the modularization and tested.
+LL, HU, and SRE contributed code that created predicted interval plots (PIPS) for time to event analyses. LMS provided 
+  enhancements for time-to-event outcomes. (Time-to-event outcomes are not yet supported by the package, but these 
+  programs aided our design.)  HC wrote code for binary outcomes.  LD and SM wrote for normal outcomes.  DGM 
+  consolidated, modularized, and improved these contributions. RG finished the modularization and tested.
   SRE provided statistical concepts/methodology.
 
 Affiliations:

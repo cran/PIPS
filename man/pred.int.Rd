@@ -11,7 +11,7 @@ Generates predicted intervals of some effect estimate given observed data
 \usage{
 pred.int(y, group = NA, N, true.y = "observed", ref = NA, 
          data.type = c("t.test", "binary"), var.equal = FALSE, 
-         conf.level = 0.95, iters = 100)
+         conf.level = 0.95, obs.conf.level=NA, iters = 100)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -46,7 +46,13 @@ TRUE/FALSE whether to assume variance equal in t-test. Default is FALSE. This do
  the group, not the pooled variance 
 }
   \item{conf.level}{
-Confidence level for intervals (between 0 and 1).  Default is 0.95
+Confidence level for intervals (between 0 and 1).  Default is 0.95.  This is the confidence level
+ used for the predicted intervals and will also define the confidence level used for the observed
+ interval unless \code{obs.conf.level} is also used.
+}
+  \item{obs.conf.level}{
+Confidence level for the observed intervals (between 0 and 1).  Default is the same level specified
+ for the predicted intervals in the \code{conf.level} parameter.
 }
   \item{iters}{
 Number of predicted intervals to generate.  Default is 100
@@ -95,7 +101,8 @@ A list of matrices with 3 columns and \code{iters} rows.  The columns are the po
   are (n(groups)-1) matrices in the list (one for each comparison/graph).
 }
 \item{data.type}{Data type (passed from input parameter)}
-\item{conf.level}{Confidence level (passed from input parameter)}
+\item{conf.level}{Confidence level used for predicted intervals (passed from input parameter)}
+\item{obs.conf.level}{Confidence level used for observed intervals (see \code{obs.conf.level} input parameter)}
 }
 
 \references{

@@ -1,8 +1,7 @@
 ###########################################################################
-## Author: Daniel Muenz / Ray Griner
-## Date: November, 2011 (started in 2010)
-## Desc: Defines a plot function for an object of type "pred.int".
-## Parameters: 
+## PROGRAM: plot.pred.int.R
+## PURPOSE: Defines a plot function for an object of type "pred.int".
+## INPUT: 
 ##   x: Object of type pred.int containing the PIPs data for plotting
 ##   conf.int: Print confidence interval for observed data?  TRUE (default)/FALSE
 ##   vline: Vector of x-values for vertical lines to print on the graph. These may
@@ -32,8 +31,16 @@
 ##   ...: Other options will be passed through to the plot.default function. For
 ##    example, you can set the color of the main title to blue by passing
 ##    col.main="blue"
+## OUTPUT: Draws a figure
+## MACROS USED:   None 
+## CALLED BY:     None
+## AUTHOR:        Daniel Muenz / Ray Griner
+## CREATION DATE: November, 2011 (started in 2010)
+## NOTES:         
+## MODIFICATIONS:  
 ## [RG20120107] Ray Griner standardized stop message
 ## [RG20120201] Ray Griner added support for ci.col and pi.col.fun
+## [RG20120830] Ray Griner standardized header
 ###########################################################################
 plot.pred.int <- function(x, conf.int=TRUE, vline=NA, which=NULL, axes=TRUE,
     pi.col.fun=NULL, ci.col=2, main, xlab, ylab, xlim, ...)
@@ -66,10 +73,11 @@ plot.pred.int <- function(x, conf.int=TRUE, vline=NA, which=NULL, axes=TRUE,
     }
 
     ## Use default title if none passed in input.
-    mymain <- if (missing(main))
-               paste(x$conf.level*100, "% Predicted Interval Plot",
-                       if (!fake.name) " for #BY#", sep="")
-              else main
+    if (missing(main) && ( (x$conf.level==x$obs.conf.level) || (conf.int==FALSE)) )
+       { mymain<-paste(x$conf.level*100, "% Predicted Interval Plot", if (!fake.name) " for #BY#", sep="") }
+    else if (missing(main))
+       { mymain<-paste("Predicted Interval Plot", if (!fake.name) " for #BY#", sep="") }
+    else mymain<-main
 
     mymain <- rep(mymain, length.out=length(plots))
     names(mymain) <- plots

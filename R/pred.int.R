@@ -1,12 +1,9 @@
 ####################################################################################
-## File: pred.int.R
-## Author: Daniel Muenz (2010) / Ray Griner (2011 - some clean-up)
-## Date: 2010
-## Description: R function to generate predicted intervals based on observed and 
+## PROGRAM: pred.int.R
+## PURPOSE: R function to generate predicted intervals based on observed and 
 ##   simulated data.
 ## 
-## INPUT PARAMETERS ################################################################
-##
+## INPUT:
 ## y (REQUIRED): a numeric vector of outcomes (with at least 2 elements and no 
 ##   missing values) 
 ## group: an optional vector of groups. If it exists, it must be the same length as 
@@ -22,10 +19,15 @@
 ## ref: An optional group name that will serve as the reference group.  Default is 
 ##   the first alphabetically.   
 ## data.type (REQUIRED): Either {"t.test","binary"}
-## conf.level: Confidence level (between 0 and 1).  Default is 0.95
+## conf.level: Confidence level (between 0 and 1).  Default is 0.95.  This is the
+##   confidence level used for the predicted intervals and will also define the 
+##   confidence level used for the observed interval unless obs.conf.level is 
+##   also used.
+## obs.conf.level: Confidence level for the observed intervals.  Default is the
+##   same level specified for the predicted intervals in conf.level parameter.
 ## iters: Number of predicted intervals to generate.  Default is 100
 ## 
-## OUTPUT ##########################################################################
+## OUTPUT:
 ##
 ## The function returns a list of class "pred.int" having these elements:
 ##
@@ -39,7 +41,13 @@
 ##  pi: A list of matrices with 3 columns and iters rows.  The columns are the point 
 ##   estimate and lower/upper confidence limit for each predicted interval.  There 
 ##   are (n(groups)-1) matrices in the list (one for each comparison/graph).
-####CHANGES#########################################################################
+##
+## MACROS USED:   prop.test.mult.R, sim.basic.R, t.test.mult.R
+## CALLED BY:     None
+## AUTHOR:        Daniel Muenz (2010) / Ray Griner (2011 - some clean-up)
+## CREATION DATE: 2010
+## NOTES:
+## MODIFICATIONS: 
 # [RG20111202] Ray Griner added line to test version and exit if < 2.12.1
 # [RG20120107] Ray Griner standardized stop messages per guidelines in Writing R
 #  Extensions (R-exts.pdf) since we are now going to submit to CRAN. Mostly this was
@@ -48,11 +56,12 @@
 # [RG20120201] Ray Griner disabled printing of run-time optional (so that repeated 
 #  runs could be identical).  Useful for submitting to CRAN because now test cases 
 #  will always have same output when repeated.
+# [RG20120830] Ray Griner added support for obs.conf.level and stdized header
 ####################################################################################
 
 pred.int <- function(y, group=NA, N, true.y="observed", ref=NA,
                      data.type=c("t.test","binary"), var.equal=FALSE,
-                     conf.level=0.95, iters=100)
+                     conf.level=0.95, obs.conf.level=NA, iters=100)
 {
     ## Time of invokation
     start.time <- as.POSIXlt(Sys.time(), "EST")
@@ -70,8 +79,13 @@ pred.int <- function(y, group=NA, N, true.y="observed", ref=NA,
     # Actually, I should figure out exactly which version is required 1.8.1 isnt
     # good enough, but 2.12.1 may not be necessary.  These are the two versions we
     # have installed [RG20111202]
+    if ((version$major==2 && version$minor<12.1) || version$major<2) stop(paste('Need R version 2.12.1 at least. This is ',R.version.string, '. Try running on daisy.',sep=''))
 
     data.type <- match.arg(data.type, several.ok=FALSE)
+ 
+    ## Confidence level for observed data should default to level used for predicted data
+    if (is.na(obs.conf.level)) 
+      obs.conf.level<-conf.level
 
     ## Argument validation
     ## [RG20120107]S
@@ -101,6 +115,9 @@ pred.int <- function(y, group=NA, N, true.y="observed", ref=NA,
     else if ((length(conf.level) != 1) || is.na(conf.level) || (conf.level <= 0)
              || (conf.level >= 1))
         stop("'conf.level' must be a single number between 0 and 1")
+    else if ((length(obs.conf.level) != 1) || is.na(obs.conf.level) || (obs.conf.level <= 0)
+             || (obs.conf.level >= 1))
+        stop("'obs.conf.level' must be a single number between 0 and 1")
     else if ( !(abs(iters-round(iters))<.Machine$double.eps^0.5) || (iters <= 0))   # Got the idea for this from (is.integer) 
         stop("'iters' (number of simulations) must be a positive integer")
     ##[RG20120107]E
@@ -222,7 +239,7 @@ pred.int <- function(y, group=NA, N, true.y="observed", ref=NA,
                                          x2=obs.count[[ref]],
                                          n2=obs.n[[ref]],
                                          samples=n.group,
-                                         conf.level=conf.level,
+                                         conf.level=obs.conf.level,
                                          correct=FALSE,
                                          as.vector=TRUE)
 
@@ -281,7 +298,7 @@ pred.int <- function(y, group=NA, N, true.y="observed", ref=NA,
                                       var2=obs.sd[ref]^2,
                                       n2=obs.n[ref],
                                       samples=n.group,
-                                      conf.level=conf.level,
+                                      conf.level=obs.conf.level,
                                       var.equal=var.equal,
                                       as.vector=TRUE)
 
@@ -338,7 +355,8 @@ pred.int <- function(y, group=NA, N, true.y="observed", ref=NA,
                    obs.n=obs.n, ci=ci,
                    sim.n=sim.n, pi=pi,
                    data.type=data.type,
-                   conf.level=conf.level)
+                   conf.level=conf.level,
+                   obs.conf.level=obs.conf.level)
 
     ## Make result of class pred.int.  This lets us use the plot and
     ## print methods for this class.

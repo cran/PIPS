@@ -1,0 +1,10 @@
+                    Release history of the "PIPS" package
+
+Version 1.0.1, 2012-08-31
+- Add support for obs.conf.level parameter so that confidence level for
+  observed data and observed+simulated data can differ. obs.conf.level
+  element added to objects of type pred.int.
+
+Version 1.0.0, 2012-02-10
+- This is the first public release (2012-02-10)
+

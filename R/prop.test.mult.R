@@ -1,8 +1,6 @@
 ###########################################################################
-## File: prop.test.mult.R
-## Author: Daniel Muenz 
-## Date: 2010
-## Description:
+## PROGRAM:   prop.test.mult.R
+## PURPOSE:
 ##
 ## Function to perform a 1 or 2 sample test of proportions.  The code
 ## comes largely from prop.test in the stats package, but differs in
@@ -29,11 +27,18 @@
 ##  convenient for the calling program.  Otherwise, results will be
 ##  returned as a matrix
 ## 
-## RETURN VALUE:
+## OUTPUT (RETURN VALUE):
 ## The function returns either a vector (if as.vector=TRUE - with elements
 ## {estimate,upper, lower}) or a matrix (with columns {estimate,upper,lower} and
 ## one row for every test.
+## MACROS USED:   None
+## CALLED BY:     pred.int.R
+## AUTHOR:        Daniel Muenz 
+## CREATION DATE: 2010
+## NOTES:
+## MODIFICATIONS:
 ## [RG20120107] Ray Griner standardized stop messages
+## [RG20120830] Ray Griner stdize header
 ######################################################################
 prop.test.mult <-
 function(x1, n1, x2=NULL, n2=NULL, samples=NULL, p=NULL,
